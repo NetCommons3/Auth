@@ -10,7 +10,6 @@
  */
 
 App::uses('AuthAppController', 'Auth.Controller');
-App::uses('UserAttributeChoice', 'UserAttributes.Model');
 
 /**
  * 認証Controller
@@ -91,11 +90,15 @@ class AuthController extends AuthAppController {
 			if ($this->Auth->login()) {
 				$User->updateLoginTime($this->Auth->user('id'));
 				Current::write('User', $this->Auth->user());
+
+				// 継承先から呼び出すと、行頭で App::uses('UserAttributeChoice', 'UserAttributes.Model');を定義しても
+				// Class 'UserAttributeChoice' not foundになることがあるため、ここでApp::users()する
+				App::uses('UserAttributeChoice', 'UserAttributes.Model');
 				if ($this->Auth->user('language') !== UserAttributeChoice::LANGUAGE_KEY_AUTO) {
 					$this->Session->write('Config.language', $this->Auth->user('language'));
 				}
 				$this->Auth->loginRedirect = $this->_getDefaultStartPage();
-				return $this->redirect($this->Auth->redirect());
+				return $this->redirect($this->Auth->redirectUrl());
 			}
 
 			$this->NetCommons->setFlashNotification(
