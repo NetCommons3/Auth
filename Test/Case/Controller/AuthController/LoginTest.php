@@ -69,6 +69,9 @@ class AuthControllerLoginTest extends NetCommonsControllerTestCase {
 			)
 		);
 
+		if (CakePlugin::loaded('Nc2ToNc3')) {
+			CakePlugin::unload('Nc2ToNc3');
+		}
 		$this->controller->Auth
 			->expects($this->once())
 			->method('login')

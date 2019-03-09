@@ -76,11 +76,8 @@ class AutoUserRegistControllerBeforeFilterWSecretKeyTest extends NetCommonsContr
 		$this->generateNc(Inflector::camelize($this->_controller), array('components' => array(
 			'Session' => array('read', 'write', 'delete'),
 		)));
-		if (Configure::read('debug')) {
-			$exactly = 2;
-		} else {
-			$exactly = 1;
-		}
+
+		$exactly = 1;
 		$this->controller->Components->Session
 			->expects($this->exactly($exactly))->method('read')
 			->will($this->returnCallback(function ($key) {
@@ -113,11 +110,8 @@ class AutoUserRegistControllerBeforeFilterWSecretKeyTest extends NetCommonsContr
 		$this->generateNc(Inflector::camelize($this->_controller), array('components' => array(
 			'Session' => array('read', 'write'),
 		)));
-		if (Configure::read('debug')) {
-			$exactly = 2;
-		} else {
-			$exactly = 1;
-		}
+
+		$exactly = 1;
 		$this->controller->Components->Session
 			->expects($this->exactly($exactly))->method('read')
 			->will($this->returnValue(null));
