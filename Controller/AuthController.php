@@ -94,6 +94,9 @@ class AuthController extends AuthAppController {
 			//$this->_setNc2Authenticate();
 
 			if ($this->Auth->login()) {
+				ClassRegistry::removeObject('User');
+				$this->User = ClassRegistry::init('Users.User');
+
 				$this->User->updateLoginTime($this->Auth->user('id'));
 				Current::write('User', $this->Auth->user());
 				if ($this->Auth->user('language') !== UserAttributeChoice::LANGUAGE_KEY_AUTO) {
