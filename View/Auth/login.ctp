@@ -22,7 +22,8 @@ echo $this->element('Auth.meta');
 
 <?php echo $this->element('NetCommons.javascript_alert'); ?>
 <?php foreach ($authenticators as $plugin): ?>
-	<article class="panel panel-default" ng-controller="Auth" ng-init="initialize('<?php echo Inflector::camelize($plugin); ?>')" ng-cloak>
+	<article class="panel panel-default" ng-controller="Auth"
+			ng-init="initialize(<?php echo h(json_encode(Inflector::camelize($plugin))); ?>)" ng-cloak>
 		<?php if ($plugin !== 'auth_general') : ?>
 			<div class="panel-heading">
 				<strong>
