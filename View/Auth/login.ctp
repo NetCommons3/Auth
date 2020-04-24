@@ -7,10 +7,12 @@
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
+ * @author Kazunori Sakamoto <exkazuu@willbooster.com>
  * @link http://www.netcommons.org NetCommons Project
  * @license http://www.netcommons.org/license.txt NetCommons License
  * @copyright Copyright 2014, NetCommons Project
  */
+echo $this->NetCommonsHtml->script('/auth/js/auth.js');
 echo $this->element('Auth.meta');
 ?>
 
@@ -18,8 +20,9 @@ echo $this->element('Auth.meta');
 	<?php echo __d('auth', 'Login'); ?>
 </h2>
 
+<?php echo $this->element('NetCommons.javascript_alert'); ?>
 <?php foreach ($authenticators as $plugin): ?>
-	<article class="panel panel-default">
+	<article class="panel panel-default" ng-controller="Auth" ng-init="initialize()">
 		<?php if ($plugin !== 'auth_general') : ?>
 			<div class="panel-heading">
 				<strong>
@@ -63,6 +66,10 @@ echo $this->element('Auth.meta');
 					</button>
 
 					<hr>
+
+					<a ng-click="test()" ng-cloak>
+						テスト
+					</a>
 
 					<?php if ($isMailSend && ! SiteSettingUtil::read('App.close_site') && SiteSettingUtil::read('ForgotPass.use_password_reissue')) : ?>
 						<div>
