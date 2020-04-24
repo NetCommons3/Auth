@@ -22,7 +22,7 @@ echo $this->element('Auth.meta');
 
 <?php echo $this->element('NetCommons.javascript_alert'); ?>
 <?php foreach ($authenticators as $plugin): ?>
-	<article class="panel panel-default" ng-controller="Auth" ng-init="initialize()">
+	<article class="panel panel-default" ng-controller="Auth" ng-init="initialize('<?php echo Inflector::camelize($plugin); ?>')" ng-cloak>
 		<?php if ($plugin !== 'auth_general') : ?>
 			<div class="panel-heading">
 				<strong>
@@ -66,10 +66,6 @@ echo $this->element('Auth.meta');
 					</button>
 
 					<hr>
-
-					<a ng-click="test()" ng-cloak>
-						テスト
-					</a>
 
 					<?php if ($isMailSend && ! SiteSettingUtil::read('App.close_site') && SiteSettingUtil::read('ForgotPass.use_password_reissue')) : ?>
 						<div>

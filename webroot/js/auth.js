@@ -18,11 +18,48 @@ NetCommonsApp.controller('Auth',
        *
        * @return {void}
        */
-      $scope.initialize = function() {
-        console.log('initialized');
-      };
+      $scope.initialize = function(formId) {
+        var $form = $('#' + formId);
+        var $loading = $('#loading');
 
-      $scope.test = function() {
-        $scope.flashMessage('test', 'alert alert-danger', 5000);
+        $form.submit(function(event) {
+          event.preventDefault();
+          $loading.removeClass('ng-hide');
+
+          var $inputs = $form.find('input');
+          var data = {};
+          for (var i = 0; i < $inputs.length; i++) {
+            var name = $inputs[i].getAttribute('name');
+            var parts = name.split(/[\[\]]+/).filter(s => s);
+            if (parts.length > 1) {
+              var lastObj = data;
+              var j = 1;
+              for (; j < parts.length - 1; j++) {
+                var part = parts[j];
+                lastObj[part] = lastObj[part] || {};
+                lastObj = lastObj[part];
+              }
+              lastObj[parts[j]] = $inputs[i].value;
+            }
+          }
+          $http.post(
+            NC3_URL + '/auth_general/auth_general/login',
+            $.param({_method: 'POST', data: data}),
+            {
+              cache: false,
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            }
+          ).then(
+            function() {
+              window.location.href = '/';
+            },
+            function(response) {
+              var data = response.data;
+              $scope.flashMessage(data.message, 'alert alert-' + data.class, data.interval);
+              $scope.updateTokens(true);
+            });
+
+          return false;
+        });
       };
     }]);
