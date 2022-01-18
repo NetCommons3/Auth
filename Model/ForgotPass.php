@@ -129,6 +129,14 @@ class ForgotPass extends AppModel {
 			'conditions' => $conditions,
 		));
 
+		if (empty($user['User']['id'])) {
+			$this->invalidate(
+				'email',
+				__d('auth', 'The email address entered is invalid.')
+			);
+			return false;
+		}
+
 		$forgotPass = $this->create(array(
 			'user_id' => Hash::get($user, 'User.id', '0'),
 			'username' => Hash::get($user, 'User.username'),

@@ -147,6 +147,9 @@ class ForgotPassController extends AuthAppController {
 
 				//対象のユーザがいる場合は、メール送る。
 				//成否を出すと、悪意ある人がやった場合、メールアドレスがバレてしまうため、送ったことにする。
+				//⇒有名どころのWebサービスでは、エラーを表示している。
+				//　かなり昔では、送らない方が良かったかもしれないが、新規登録などで既に登録されているなどの
+				//　エラーを返すことから、この回避方法は意味がないため、エラーを返すようにする。
 				if (Hash::get($forgotPass, 'user_id')) {
 					$this->mail->mailAssignTag->setFixedPhraseSubject(
 						SiteSettingUtil::read('ForgotPass.issue_mail_subject')

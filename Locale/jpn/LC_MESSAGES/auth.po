@@ -67,6 +67,9 @@ msgstr "アカウントを承認できませんでした。<br>システム管�
 msgid "Forgot your Password?"
 msgstr "パスワード再発行"
 
+msgid "The email address entered is invalid."
+msgstr "このメールアドレスは登録されていません。"
+
 #: Auth/Controller/ForgotPassController.php:164
 #: Auth/Test/Case/Controller/ForgotPassController/RequestTest.php:216;301
 msgid "We have sent you the key to obtain a new password to your registered e-mail address."
