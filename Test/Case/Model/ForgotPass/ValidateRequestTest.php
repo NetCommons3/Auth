@@ -92,43 +92,19 @@ class ForgotPassValidateRequestTest extends NetCommonsModelTestCase {
 		$index = 2;
 		$result[$index] = array();
 		$result[$index]['email'] = 'aaaaa@exapmle.com';
-		$result[$index]['expected'] = array(
-			'ForgotPass' => array(
-				'user_id' => '0',
-				'username' => '',
-				'handlename' => '',
-				'authorization_key' => 'a',
-				'email' => $result[$index]['email'],
-			)
-		);
+		$result[$index]['expected'] = false;
 
 		//3: 削除されたユーザ、emailアドレス
 		$index = 3;
 		$result[$index] = array();
 		$result[$index]['email'] = 'deleted_1@exapmle.com';
-		$result[$index]['expected'] = array(
-			'ForgotPass' => array(
-				'user_id' => '0',
-				'username' => '',
-				'handlename' => '',
-				'authorization_key' => 'a',
-				'email' => $result[$index]['email'],
-			)
-		);
+		$result[$index]['expected'] = false;
 
 		//4: 削除されたユーザ、mobile_emailアドレス
 		$index = 4;
 		$result[$index] = array();
 		$result[$index]['email'] = 'deleted_2@exapmle.com';
-		$result[$index]['expected'] = array(
-			'ForgotPass' => array(
-				'user_id' => '0',
-				'username' => '',
-				'handlename' => '',
-				'authorization_key' => 'a',
-				'email' => $result[$index]['email'],
-			)
-		);
+		$result[$index]['expected'] = false;
 
 		//5: validationエラー
 		$index = 5;
